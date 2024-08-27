@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+
+  <title>Edit Task</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-2">
+      <!-- Back to home button -->
+      <p>
+        <a class="btn btn-outline-success" href="/todos/all">
+          <i class="bi bi-plus-square-fill"></i> Back
+        </a>
+      </p>
+    </div>
+    <div class="col-6"></div>
+    <h2>Edit this task</h2>
+    <br>
+    <br>
+<!--    <form th:action="@{/edit/{id}(id=${todo.id})}" th:object="${todo}" method="POST">-->
+<!--      <div class="form-group">-->
+<!--        <div class="col-6">-->
+<!--          &lt;!&ndash; Description Input &ndash;&gt;-->
+<!--          <label for="description">Description</label>-->
+<!--          <input class="form-control"-->
+<!--                 type="text"-->
+<!--                 th:field="*{description}"-->
+<!--                 id="description"-->
+<!--                 placeholder="Description">-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        <div class="col-6">-->
+<!--          &lt;!&ndash; IsComplete Input &ndash;&gt;-->
+<!--          <label for="isComplete">Completion Status (true/false)</label>-->
+<!--          <input class="form-control"-->
+<!--                 type="text"-->
+<!--                 th:field="*{isComplete}"-->
+<!--                 id="isComplete"-->
+<!--                 placeholder="Completion Status (true/false)">-->
+<!--        </div>-->
+<!--        <br>-->
+
+<!--        &lt;!&ndash; Hidden fields for date fields &ndash;&gt;-->
+<!--        <input type="hidden" th:field="*{createdAt}" />-->
+<!--        <input type="hidden" th:field="*{updatedAt}" />-->
+
+<!--        <button type="submit" class="btn btn-outline-success">-->
+<!--          <i class="bi bi-plus-square-fill"></i>-->
+<!--          <div>Update this task</div>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </form>-->
+
+    <form th:action="@{/todos/edit/{id}(id=${todo.id})}" th:object="${todo}" method="POST">
+      <!-- Form Fields -->
+      <label for="description"> Description</label>
+      <input class="form-control" type="text" th:field="*{description}" id="description" placeholder="Description">
+      <label for="isComplete"> Complete? </label>
+      <input class="form-control" type="text" th:field="*{isComplete}" id="isComplete" placeholder="Completion Status (true/false)">
+      <input type="hidden" th:field="*{createdAt}" />
+      <input type="hidden" th:field="*{updatedAt}" />
+      <br>
+      <button type="submit" class="btn btn-outline-success">
+        <i class="bi bi-plus-square-fill"></i> Update this task
+      </button>
+    </form>
+
+
+  </div>
+</div>
+<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

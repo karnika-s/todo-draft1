@@ -4,6 +4,7 @@ package com.example.todo_2.controllers;
 //import com.example.todoapp.service.CustomUserDetailsService;
 import com.example.todo_2.model.User;
 import com.example.todo_2.services.CustomUserDetailsService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,12 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
-        public String registerPage(@RequestParam(value = "error", required = false) String error, Model model) {
-            if (error != null) {
-                model.addAttribute("error", "Registration failed. Please try again.");
-            }
-            return "register";
+    public String registerPage(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Registration failed. Please try again.");
         }
+        return "register";
+    }
 
     @PostMapping("/register")
     public String registerUser(@RequestParam String email, @RequestParam String password) {
@@ -43,5 +44,15 @@ public class AuthController {
     public String loginPage() {
         return "login";
     }
+
+//    @PostMapping("/login")
+//    public String login(HttpSession session, @RequestParam String email, @RequestParam String password) {
+//        User user = userDetailsService.findByEmail(email);
+//        if (user != null && user.getPassword().equals(password)) {
+//            session.setAttribute("userId", user.getId());
+//            return "redirect:/todos/all";
+//        }
+//        return "login";  // Return to login page with error
+//    }
 
 }

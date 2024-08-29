@@ -5,20 +5,21 @@ package com.example.todo_2.controllers;
 //import com.example.todoapp.service.TodoService;
 //import com.example.todoapp.service.CustomUserDetailsService;
 import com.example.todo_2.model.Todo;
-import com.example.todo_2.model.User;
 import com.example.todo_2.services.CustomUserDetailsService;
 import com.example.todo_2.services.TodoService;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/todos")
@@ -39,6 +40,7 @@ public class TodoController {
 //        return "todo-list";
 //    }
 
+//    used otherwise
     @GetMapping("/all")
     public String listTodos(Model model) {
         System.out.println(" in todos all");
@@ -47,8 +49,26 @@ public class TodoController {
         return "todo-list";
     }
 
-//    @PostMapping("/")
-
+//used with session
+//@GetMapping("/all")
+//public String listTodos(HttpSession session, Model model) {
+//    Long userId = (Long) session.getAttribute("userId");
+//    Long Id = (Long) session.getAttribute("Id");
+//    System.out.println("User ID from todo session: " + userId);  // Debug output
+//    System.out.println("user if from user" + Id);
+//
+//    if (userId == null) {
+//        return "redirect:/login";  // Redirect to login if userId is not found in the session
+//    }
+//
+//    List<Todo> todoItems = todoService.findByUserId(userId);
+//    if (todoItems == null || todoItems.isEmpty()) {
+//        System.out.println("No todos found for user ID: " + userId);  // Debug output
+//    }
+//
+//    model.addAttribute("todoItems", todoItems);
+//    return "todo-list";
+//}
 
     // Method to show the form for creating a new Todo item
     @GetMapping("/create-todo")
@@ -94,6 +114,7 @@ public class TodoController {
 
 
 
+    //method used otherwise
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Todo todo = todoService.findById(id);
@@ -104,30 +125,96 @@ public class TodoController {
     }
 
 
-        @PostMapping("/edit/{id}")
-        public String updateTodo(@PathVariable Long id, @ModelAttribute("todo") Todo todo) {
-            // Find the existing Todo by id
-            Todo existingTodo = todoService.findById(id);
+//method used with session
+//    @GetMapping("/edit/{id}")
+//    public String showEditForm(@PathVariable Long id, HttpSession session, Model model) {
+//        Long userId = (Long) session.getAttribute("userId");
+//        if (userId == null) {
+//            return "error";  // Handle the case where userId is not found in the session
+//        }
+//
+//        List<Todo> todoItems = todoService.findByUserId(userId);
+//        Optional<Todo> optionalTodo = todoItems.stream().filter(todo -> todo.getId().equals(id)).findFirst();
+//        if (optionalTodo.isEmpty()) {
+//            return "error";  // Ensure the todo belongs to the current user
+//        }
+//        model.addAttribute("todo", optionalTodo.get());
+//        return "edit_todo";
+//    }
+
+    //method used otherwise
+    @PostMapping("/edit/{id}")
+    public String updateTodo(@PathVariable Long id, @ModelAttribute("todo") Todo todo) {
+        // Find the existing Todo by id
+        Todo existingTodo = todoService.findById(id);
 //            .orElseThrow(() -> new IllegalArgumentException("Todo item id: " + id + " notfound"));
 
-            // Update fields
-            existingTodo.setDescription(todo.getDescription());
-            existingTodo.setIsComplete(todo.getIsComplete());
+        // Update fields
+        existingTodo.setDescription(todo.getDescription());
+        existingTodo.setIsComplete(todo.getIsComplete());
 //            existingTodo.setUpdatedAt(LocalDateTime.now());
 
-            // Save the updated Todo
-            todoService.save(existingTodo);
+        // Save the updated Todo
+        todoService.save(existingTodo);
 
-            // Redirect to the /todos/all page after update
-            return "redirect:/todos/all";
-        }
+        // Redirect to the /todos/all page after update
+        return "redirect:/todos/all";
+    }
 
+    //method used with session
+//    @PostMapping("/edit/{id}")
+//    public String updateTodo(@PathVariable Long id, @ModelAttribute("todo") Todo todo, HttpSession session) {
+//        Long userId = (Long) session.getAttribute("userId");
+//        if (userId == null) {
+//            return "error";  // Handle the case where userId is not found in the session
+//        }
+//
+//        List<Todo> todoItems = todoService.findByUserId(userId);
+//        Optional<Todo> optionalTodo = todoItems.stream().filter(t -> t.getId().equals(id)).findFirst();
+//        if (optionalTodo.isEmpty()) {
+//            return "error";  // Redirect to an error page or handle it appropriately
+//        }
+//
+//        // Update fields
+//        Todo existingTodo = optionalTodo.get();
+//        existingTodo.setDescription(todo.getDescription());
+//        existingTodo.setIsComplete(todo.getIsComplete());
+//        existingTodo.setUpdatedAt(Instant.now());
+//
+//        // Save the updated Todo item
+//        todoService.save(existingTodo);
+//
+//        return "redirect:/todos/all";  // Redirect to the list of all Todo items
+//    }
+
+
+    //used otherwise
     @GetMapping("/delete/{id}")
     public String deleteTodo(@PathVariable("id") Long id, Model model) {
         todoService.deleteById(id);
         return "redirect:/todos/all";
     }
 
+
+    //used with session
+//    @GetMapping("/delete/{id}")
+//    public String deleteTodo(@PathVariable("id") Long id, HttpSession session) {
+//        Long userId = (Long) session.getAttribute("userId");
+//        if (userId == null) {
+//            return "error";  // Handle the case where userId is not found in the session
+//        }
+//
+//        List<Todo> todoItems = todoService.findByUserId(userId);
+//        Optional<Todo> optionalTodo = todoItems.stream().filter(todo -> todo.getId().equals(id)).findFirst();
+//        if (optionalTodo.isEmpty()) {
+//            return "error";  // Redirect to an error page or handle it appropriately
+//        }
+//
+//        // Delete the Todo item
+//        todoService.deleteById(id);
+//
+//        return "redirect:/todos/all";  // Redirect to the list of all Todo items
+//    }
 
 
 //        --------------------------------------------------

@@ -19,7 +19,8 @@
     <thead>
     <tr>
       <th>Actions</th>
-      <th>ID</th>
+      <th>User ID</th>
+      <th>Task ID</th>
       <th>Description</th>
       <th>Completion Status</th>
       <th>Created At</th>
@@ -54,7 +55,9 @@
         </div>
       </td>
 
+      <td th:text="${item.user.id}"> </td>
       <td th:text="${item.id}"></td>
+
       <td th:text="${item.description}"></td>
 
       <td>

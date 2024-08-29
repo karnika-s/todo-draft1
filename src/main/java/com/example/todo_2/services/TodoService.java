@@ -6,6 +6,7 @@ package com.example.todo_2.services;
 import com.example.todo_2.model.Todo;
 import com.example.todo_2.model.User;
 import com.example.todo_2.repository.TodoRepository;
+import com.example.todo_2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,15 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+
+
+    // Update method to find todos by user
+//    public Optional<Todo> findByUser(User user) {
+//        return todoRepository.findByUserId(user.getId());
+//    }
 
     public Todo save(Todo item)
     {
@@ -53,22 +63,30 @@ public class TodoService {
     /**
      * Find a todo by its ID.
      *
-     * @param id the ID of the todo
+//     * @param id the ID of the todo
      * @return the todo if found, otherwise empty
      */
+
+    //method used otherwise
     public Todo findById(Long id) {
         Optional<Todo> result = todoRepository.findById(id);
         return result.orElse(null);
     }
 
-    /**
-     * Delete a todo by its ID.
-     *
-     * @param id the ID of the todo to delete
-     */
-    public void deleteById(Long id) {
-        todoRepository.deleteById(id);
-    }
+
+    //method used with session
+//    public List<Todo> findByUserId(Long userId) {
+//        return todoRepository.findByUserId(userId);
+//    }
+//    /**
+//     * Delete a todo by its ID.
+//     *
+//     * @param id the ID of the todo to delete
+//     */
+public void deleteById(Long id) {
+    todoRepository.deleteById(id);
+}
+
     public List<Todo> findAll() {
         return todoRepository.findAll();
     }

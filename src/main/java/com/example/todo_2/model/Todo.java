@@ -34,6 +34,16 @@ public class Todo implements Serializable {
     private Instant createdAt;
     private Instant updatedAt;
 
+    //older working otherwise
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User userId;
+
+    //new with session
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 
     //implementing serializable so overriding

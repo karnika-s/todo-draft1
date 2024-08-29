@@ -25,40 +25,40 @@
     <h2>Edit this task</h2>
     <br>
     <br>
-<!--    <form th:action="@{/edit/{id}(id=${todo.id})}" th:object="${todo}" method="POST">-->
-<!--      <div class="form-group">-->
-<!--        <div class="col-6">-->
-<!--          &lt;!&ndash; Description Input &ndash;&gt;-->
-<!--          <label for="description">Description</label>-->
-<!--          <input class="form-control"-->
-<!--                 type="text"-->
-<!--                 th:field="*{description}"-->
-<!--                 id="description"-->
-<!--                 placeholder="Description">-->
-<!--        </div>-->
-<!--        <br>-->
+    <!--    <form th:action="@{/edit/{id}(id=${todo.id})}" th:object="${todo}" method="POST">-->
+    <!--      <div class="form-group">-->
+    <!--        <div class="col-6">-->
+    <!--          &lt;!&ndash; Description Input &ndash;&gt;-->
+    <!--          <label for="description">Description</label>-->
+    <!--          <input class="form-control"-->
+    <!--                 type="text"-->
+    <!--                 th:field="*{description}"-->
+    <!--                 id="description"-->
+    <!--                 placeholder="Description">-->
+    <!--        </div>-->
+    <!--        <br>-->
 
-<!--        <div class="col-6">-->
-<!--          &lt;!&ndash; IsComplete Input &ndash;&gt;-->
-<!--          <label for="isComplete">Completion Status (true/false)</label>-->
-<!--          <input class="form-control"-->
-<!--                 type="text"-->
-<!--                 th:field="*{isComplete}"-->
-<!--                 id="isComplete"-->
-<!--                 placeholder="Completion Status (true/false)">-->
-<!--        </div>-->
-<!--        <br>-->
+    <!--        <div class="col-6">-->
+    <!--          &lt;!&ndash; IsComplete Input &ndash;&gt;-->
+    <!--          <label for="isComplete">Completion Status (true/false)</label>-->
+    <!--          <input class="form-control"-->
+    <!--                 type="text"-->
+    <!--                 th:field="*{isComplete}"-->
+    <!--                 id="isComplete"-->
+    <!--                 placeholder="Completion Status (true/false)">-->
+    <!--        </div>-->
+    <!--        <br>-->
 
-<!--        &lt;!&ndash; Hidden fields for date fields &ndash;&gt;-->
-<!--        <input type="hidden" th:field="*{createdAt}" />-->
-<!--        <input type="hidden" th:field="*{updatedAt}" />-->
+    <!--        &lt;!&ndash; Hidden fields for date fields &ndash;&gt;-->
+    <!--        <input type="hidden" th:field="*{createdAt}" />-->
+    <!--        <input type="hidden" th:field="*{updatedAt}" />-->
 
-<!--        <button type="submit" class="btn btn-outline-success">-->
-<!--          <i class="bi bi-plus-square-fill"></i>-->
-<!--          <div>Update this task</div>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </form>-->
+    <!--        <button type="submit" class="btn btn-outline-success">-->
+    <!--          <i class="bi bi-plus-square-fill"></i>-->
+    <!--          <div>Update this task</div>-->
+    <!--        </button>-->
+    <!--      </div>-->
+    <!--    </form>-->
 
     <form th:action="@{/todos/edit/{id}(id=${todo.id})}" th:object="${todo}" method="POST">
       <!-- Form Fields -->
